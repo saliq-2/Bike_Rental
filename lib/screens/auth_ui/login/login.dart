@@ -1,7 +1,10 @@
 import 'package:e_commerce_full/constants/constant.dart';
 import 'package:e_commerce_full/firebase_helper/firebase_auth/firebase_auth.dart';
+import 'package:e_commerce_full/screens/auth_ui/sign_up/signup.dart';
 import 'package:e_commerce_full/screens/home/homepage.dart';
 import 'package:flutter/material.dart';
+
+import '../../custom_bt_navbar/custom_bt_nav_bar.dart';
 
 class login extends StatelessWidget
 {
@@ -81,11 +84,11 @@ class login extends StatelessWidget
                    {
 
 
-                     bool isLoggedIn= await firebase_auth1.instance.login(email_controller.text, password_controller.text, context);
+                     bool isLoggedIn= await firebase_auth1.instance.login(email_controller.text.trim(), password_controller.text.trim(), context);
 
                     if(isLoggedIn)
                       {
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>homepage()), (route) => false);
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>CustomBottomBar()), (route) => false);
                       }
                    }
 
@@ -100,7 +103,9 @@ class login extends StatelessWidget
             height: 20,
           ),
           Center(child: Text("Dont have an account")),
-          Center(child: TextButton(onPressed: (){}, child: Text("Create Account"))),
+          Center(child: TextButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>signup()));
+          }, child: Text("Create Account"))),
 
 
         ],

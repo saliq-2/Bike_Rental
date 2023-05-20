@@ -41,6 +41,7 @@ dependencies:
   provider: ^6.0.5
   firebase_storage: ^11.0.16
   persistent_bottom_nav_bar: ^5.0.2
+  image_picker: ^0.8.7+1
 #  fluttertoast: ^8.2.1
 #  toast: ^0.1.5
 
@@ -69,6 +70,11 @@ flutter:
   assets:
     - asset/images/
     - asset/images/homepage/
+  fonts:
+    - family: Tangerine-Regular
+      fonts:
+        - asset: asset/fonts/Tangerine-Regular.ttf
+
 
 
 

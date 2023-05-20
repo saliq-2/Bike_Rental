@@ -1,9 +1,11 @@
 import 'package:e_commerce_full/firebase_helper/firebase_auth/firebase_auth.dart';
 import 'package:e_commerce_full/firebase_helper/firebase_firestore/firebase_firestore/firebase_firestore1.dart';
+import 'package:e_commerce_full/models/notifier/notifier_cart.dart';
 import 'package:e_commerce_full/screens/categoryview/category_view.dart';
 import 'package:e_commerce_full/screens/home/productdetails/product_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/categorymodel/category_model.dart';
 import '../../models/product_model/productmodel.dart';
@@ -15,10 +17,13 @@ class homepage extends StatefulWidget {
 
 class _homepageState extends State<homepage> {
   @override
+
   void initState() {
     // TODO: implement initState
     getCategoryList();
    // print(productsList[0]);
+    notifier_cart app_provider=Provider.of<notifier_cart>(context,listen: false);
+    app_provider.getUserInfoFirebase();
 
     super.initState();
 
@@ -35,17 +40,12 @@ class _homepageState extends State<homepage> {
     categoriesList=await FireBaseFireStoreHelper.instance.getCategories();
     productsList=await FireBaseFireStoreHelper.instance.getBestProducts();
     productsList.shuffle();
+
     setState((){
       isLoading=false;
     });
   }
 
-
-  // final List<String> categories = [
-  //   "asset/images/homepage/bike.jpg",
-  //   "asset/images/homepage/car.jpg",
-  //   "asset/images/homepage/scooty.jpg",
-  // ];
 
   final user=FirebaseAuth.instance.currentUser;
 
@@ -69,6 +69,12 @@ class _homepageState extends State<homepage> {
                   leading: Text("${user!.email}"),
                 ),
               ),
+              SizedBox(
+                  height: 30,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Past Orders"),
+                  )),
               SizedBox(height: 10,),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -79,10 +85,17 @@ class _homepageState extends State<homepage> {
       ),
       appBar: AppBar(
         backgroundColor: Color(0xFF98aef7),
+        title:Text("Rentals",
+          style: TextStyle( fontSize: 50,fontFamily:"Tangerine-Regular"),
+        ) ,
         actions: [
           IconButton(onPressed: (){
             // FirebaseAuth.instance.signOut();
-          firebase_auth1.instance.logout(user);
+
+
+
+            //firebase_auth1.instance.logout();
+
 
 
           }, icon: Icon(Icons.logout))
@@ -104,26 +117,45 @@ class _homepageState extends State<homepage> {
 
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("Ecommerce",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-            ),
-            SizedBox(height: 20,),
+              child:Container(
+                height: 150,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Container(
+                      width: 450,
+                      color: Colors.deepOrangeAccent,),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      width: 400,
+                      color: Colors.blue,)
+                  ],
+                ),
+              ) ,
+              // Placeholder(
+              //   fallbackHeight: 50,
+              // ),
+              ),
+
+            SizedBox(height: 1,),
             Center(
               child: SizedBox(
-                height: 50,
+                height: 10,
                 width: MediaQuery
                     .of(context)
                     .size
                     .width * 0.9,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      hintText: "Search",
-                      prefix: Icon(Icons.search),
-                      border: OutlineInputBorder(
-
-                      )
-                  ),
-                ),
+                // child: TextFormField(
+                //   decoration: InputDecoration(
+                //       hintText: "Search",
+                //       prefix: Icon(Icons.search),
+                //       border: OutlineInputBorder(
+                //
+                //       )
+                //   ),
+                // ),
               ),
             ),
             SizedBox(height: 20,),
@@ -173,6 +205,7 @@ class _homepageState extends State<homepage> {
             ),
             SizedBox(height: 10,),
             Container(
+
               child: Expanded(
                 child: GridView.builder(
                   //scrollDirection: Axis.vertical,
@@ -195,17 +228,18 @@ class _homepageState extends State<homepage> {
 
 
                          decoration: BoxDecoration(
-                             //color: Colors.purple.withOpacity(0.3),
+                             color: Colors.grey.shade300.withOpacity(0.3),
 
                            shape: BoxShape.rectangle,
                            borderRadius: BorderRadius.circular(11),
-                           border: Border(
-                          left: BorderSide(color: Colors.red),
-                             right:BorderSide(color: Colors.red),
-                             bottom:BorderSide(color: Colors.red) ,
-                             top:BorderSide(color: Colors.red),
 
-                           )
+                          //  border: Border(
+                          // left: BorderSide(color: Colors.red),
+                          //    right:BorderSide(color: Colors.red),
+                          //    bottom:BorderSide(color: Colors.red) ,
+                          //    top:BorderSide(color: Colors.red),
+                          //
+                          //  )
 
                          ) ,
 
@@ -217,7 +251,7 @@ class _homepageState extends State<homepage> {
 
                              ClipRRect(
 
-                                 borderRadius: BorderRadius.circular(11),
+                                 borderRadius: BorderRadius.only(topLeft: Radius.circular(11),topRight: Radius.circular(11)),
                                  child: Image.network(myproduct.image,width: 200,height: 150,fit: BoxFit.fitHeight,)),
                              SizedBox(height: 10,),
                              Row(

@@ -1,5 +1,6 @@
 import 'package:e_commerce_full/models/notifier/notifier_cart.dart';
 import 'package:e_commerce_full/models/product_model/productmodel.dart';
+import 'package:e_commerce_full/screens/buy_product/buy_product.dart';
 import 'package:e_commerce_full/screens/cartscreen/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +60,7 @@ class product_details extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: ElevatedButton(onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>buy_product()));
 
 
 

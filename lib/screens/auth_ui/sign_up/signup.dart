@@ -1,12 +1,30 @@
 import 'package:e_commerce_full/constants/constant.dart';
 import 'package:e_commerce_full/firebase_helper/firebase_auth/firebase_auth.dart';
+import 'package:e_commerce_full/screens/custom_bt_navbar/custom_bt_nav_bar.dart';
 import 'package:e_commerce_full/screens/home/homepage.dart';
 import 'package:flutter/material.dart';
 
-class signup extends StatelessWidget
+class signup extends StatefulWidget
 {
+  @override
+  State<signup> createState() => _signupState();
+}
+
+class _signupState extends State<signup> {
   TextEditingController email_controller_signup=TextEditingController();
+
   TextEditingController password_controller_signup=TextEditingController();
+
+  TextEditingController name_controller_signup=TextEditingController();
+
+  void dispose() {
+    email_controller_signup;
+    password_controller_signup;
+    name_controller_signup;
+    super.dispose();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +44,7 @@ class signup extends StatelessWidget
               child: SizedBox(
                 width: 350,
                 child: TextField(
+                  controller: name_controller_signup,
 
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.person),
@@ -75,7 +94,7 @@ class signup extends StatelessWidget
                 child: TextField(
 
                   keyboardType: TextInputType.phone,
-                  
+
 
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.phone),
@@ -135,11 +154,11 @@ class signup extends StatelessWidget
                       if(isValid)
                         {
 
-                          bool signedUp= await firebase_auth1.instance.SignUp(email_controller_signup.text, password_controller_signup.text, context);
+                          bool signedUp= await firebase_auth1.instance.SignUp(name_controller_signup.text,email_controller_signup.text, password_controller_signup.text, context);
                        if(signedUp)
                          {
                            //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>homepage()));
-                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>homepage()), (route) => false);
+                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>CustomBottomBar()), (route) => false);
                          }
                         }
 

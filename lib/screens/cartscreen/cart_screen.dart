@@ -25,25 +25,62 @@ class _cart_screenState extends State<cart_screen> {
           itemBuilder: (context,index)=>
 
 
-        Container(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 100,
-                child: ListTile(
-                  tileColor: Colors.greenAccent,
-                  leading: Image.network(notifier_model.cartList[index].image,height: 100,),
-                   trailing: IconButton(onPressed: (){
+        Padding(
+          padding:  EdgeInsets.all(8.0),
+          child: Container(
+            height: 102,
 
-                     notifier_model.removeFromCart(notifier_model.cartList[index]);
 
-                   }, icon: Icon(Icons.delete)),
-                  // title:Text("Laptop"),
-                  // subtitle: Text("Macbook pro"),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(11),
+              border: Border.all(
+                color: Colors.red,
+
+
+              )
+            ),
+            child: Column(
+              children: [
+                Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+
+
+                    ClipRRect(
+
+                        borderRadius: BorderRadius.circular(11),
+                        child: Image.network(notifier_model.cartList[index].image,height: 100,)
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(notifier_model.cartList[index].name,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text("\$"+notifier_model.cartList[index].price,style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+                          SizedBox(height: 10,),
+                          IconButton(onPressed: (){
+                            notifier_model.removeFromCart(notifier_model.cartList[index]);
+                          }, icon: Icon(Icons.delete)),
+                        ],
+                      ),
+                    ),
+
+
+
+                  ],
+                  
+
                 ),
-              ),
-              SizedBox(height: 10,),
-            ],
+
+              ],
+            ),
+
           ),
         ),
         ),

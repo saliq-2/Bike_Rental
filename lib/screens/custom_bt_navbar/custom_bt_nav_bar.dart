@@ -28,20 +28,20 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
     PersistentBottomNavBarItem(
         icon: const Icon(Icons.home),
         title: "Home",
-        activeColorPrimary: Colors.blue,
+        activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.grey,
         inactiveColorSecondary: Colors.purple),
     PersistentBottomNavBarItem(
       icon: const Icon(Icons.shopping_cart_outlined),
       title: "Cart",
-      activeColorPrimary: Colors.teal,
+      activeColorPrimary: Colors.white,
       inactiveColorPrimary: Colors.grey,
 
     ),
     PersistentBottomNavBarItem(
       icon: const Icon(Icons.person),
       title: "Profile",
-      activeColorPrimary: Colors.blueAccent,
+      activeColorPrimary: Colors.white,
       inactiveColorPrimary: Colors.grey,
 
     ),
@@ -52,6 +52,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
   Widget build(final BuildContext context) => Scaffold(
 
     body: PersistentTabView(
+
       context,
       controller: _controller,
       screens: _buildScreens(),
@@ -80,18 +81,18 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
       //   return false;
       // },
 
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.deepOrangeAccent.withOpacity(0.7),
       hideNavigationBar: _hideNavBar,
       decoration: const NavBarDecoration(colorBehindNavBar: Colors.indigo),
       itemAnimationProperties: const ItemAnimationProperties(
         duration: Duration(milliseconds: 400),
-        curve: Curves.ease,
+        curve: Curves.linear,
       ),
       screenTransitionAnimation: const ScreenTransitionAnimation(
         animateTabTransition: true,
       ),
       navBarStyle: NavBarStyle
-          .style1, // Choose the nav bar style with this property
+          .style9, // Choose the nav bar style with this property
     ),
   );
 }

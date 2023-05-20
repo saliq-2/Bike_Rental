@@ -40,14 +40,18 @@ class MyApp extends StatelessWidget {
         ),
          home:
         StreamBuilder<User?>(
-          stream: firebase_auth1.instance.getAuthChange,
-          builder: (context,snapshot){
+          stream: FirebaseAuth.instance.authStateChanges(),
+
+          builder: (context, snapshot){
             if(snapshot.hasData)
               {
+                print(snapshot.data);
                 return CustomBottomBar();
               }
             else
               {
+                print(snapshot.data);
+                print("mno");
                 return welcome();
               }
           },
